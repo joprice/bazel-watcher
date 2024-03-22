@@ -333,6 +333,8 @@ func (b *bazel) CQuery(args ...string) (*analysis.CqueryResult, error) {
 
 	b.WriteToStderr(true)
 	b.WriteToStdout(false)
+	a := strings.Join(blazeArgs[:], ",")
+	log.Logf("cquery %s",  a)
 	stdoutBuffer, _ := b.newCommand("cquery", blazeArgs...)
 
 	err := b.cmd.Run()

@@ -311,8 +311,11 @@ func (i *IBazel) iteration(command string, commandToRun runnableCommand, targets
 	case QUERY:
 		// Query for which files to watch.
 		log.Logf("Querying for files to watch...")
-		i.watchFiles(fmt.Sprintf(buildQuery, joinedTargets), i.buildFileWatcher)
-		i.watchFiles(fmt.Sprintf(sourceQuery, joinedTargets), i.sourceFileWatcher)
+		bQuery := fmt.Sprintf(buildQuery, joinedTargets)
+		sQuery := fmt.Sprintf( sourceQuery, joinedTargets)
+		log.Logf("%s\n %s", bQuery, sQuery)
+		i.watchFiles(bQuery, i.buildFileWatcher)
+		i.watchFiles(sQuery, i.sourceFileWatcher)
 		i.state = RUN
 	case DEBOUNCE_RUN:
 		select {
